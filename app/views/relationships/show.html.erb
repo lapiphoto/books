@@ -1,0 +1,28 @@
+<h1>Follower Users</h1>
+<% if @user.followers.present? %>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.followers.each do |user_followings| %>
+      <tr>
+        <td><%= attachment_image_tag(user_followings, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+        <td><%= user_followings.name %></td>
+        <td>フォロー数:<%= @user.followings.count %></td>
+        <td>フォロワー数:<%= @user.followers.count %></td>
+        <td><%= render 'relationships/follow_button', user: user_followings %></td>
+        <td><%= link_to 'Show', user_path(user_followings), class: "user_#{user_followings.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+<p>ユーザーはいません</p>
+
+<% end %>
